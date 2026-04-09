@@ -9,14 +9,94 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #008080;
-  touch-action: none;
+  background: #000;
 }
 
 body {
   position: relative;
 }
 
+/* Generic hidden helper */
+.hidden {
+  display: none !important;
+}
+
+/* =========================
+   BOOT SCREEN
+========================= */
+.boot-screen,
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 20000;
+}
+
+.boot-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.power-button {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid #d9d9d9;
+  background: #111;
+  color: #f2f2f2;
+  font-size: 52px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(255,255,255,0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.power-button:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 24px rgba(255,255,255,0.22);
+}
+
+.power-button:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   LOADING / TERMINAL
+========================= */
+.loading-screen {
+  color: #33ff33;
+  padding: 32px;
+}
+
+.terminal-window {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #33ff33;
+  padding: 20px;
+  background: #000;
+  overflow: hidden;
+}
+
+.terminal-text {
+  white-space: pre-line;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.terminal-cursor::after {
+  content: "_";
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
 .desktop {
   width: 100%;
   height: 100%;
@@ -69,10 +149,6 @@ body {
   border: 2px solid #000;
   box-shadow: 4px 4px 0 #222;
   z-index: 10;
-}
-
-.hidden {
-  display: none;
 }
 
 .title-bar {
@@ -190,5 +266,15 @@ body {
 
   .icon-label {
     font-size: 13px;
+  }
+
+  .terminal-text {
+    font-size: 16px;
+  }
+
+  .power-button {
+    width: 90px;
+    height: 90px;
+    font-size: 42px;
   }
 }
