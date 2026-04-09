@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kelly's Desktop</title>
+  <title>Retro Desktop</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="desktop" id="desktop">
+  <!-- Boot Screen -->
+  <div id="boot-screen" class="boot-screen">
+    <button id="power-button" class="power-button" type="button" aria-label="Power on">
+      ⏻
+    </button>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen hidden">
+    <div class="terminal-window">
+      <div id="terminal-text" class="terminal-text"></div>
+    </div>
+  </div>
+
+  <!-- Desktop -->
+  <div class="desktop hidden" id="desktop">
     <!-- Desktop Icons -->
-    <div class="icon" data-window="about-window" style="top: 24px; left: 18px;">
+    <div class="icon" data-window="about-window" style="top: 8px; left: 8px;">
       <div class="icon-image">📄</div>
       <div class="icon-label">AboutMe.txt</div>
     </div>
 
-    <div class="icon" data-window="projects-window" style="top: 124px; left: 18px;">
+    <div class="icon" data-window="projects-window" style="top: 108px; left: 8px;">
       <div class="icon-image">📄</div>
       <div class="icon-label">Projects.txt</div>
     </div>
 
-    <div class="icon" data-window="funfacts-window" style="top: 224px; left: 18px;">
+    <div class="icon" data-window="funfacts-window" style="top: 208px; left: 8px;">
       <div class="icon-image">📄</div>
       <div class="icon-label">FunFacts.txt</div>
     </div>
 
-    <div class="icon" data-window="notes-window" style="top: 324px; left: 18px;">
+    <div class="icon" data-window="notes-window" style="top: 308px; left: 8px;">
       <div class="icon-image">📝</div>
       <div class="icon-label">Notes</div>
     </div>
@@ -36,9 +51,9 @@
         <button class="close-btn" type="button">X</button>
       </div>
       <div class="window-content">
-        <p>Hi! I’m Kelly Zhao!</p>
-        <p>I’m interested in design, tech, and building fun interactive websites.</p>
-        <p>This site is styled like a retro desktop because I wanted it to feel playful and personal.</p>
+        <p>Hi! I’m Kelly Zhao.</p>
+        <p>I’m a Computer Engineering major at Stony Brook University.</p>
+        <p>I like building creative, interactive websites with a retro feel.</p>
       </div>
     </div>
 
@@ -49,8 +64,8 @@
       </div>
       <div class="window-content">
         <p><strong>Project 1:</strong> Personal portfolio website</p>
-        <p><strong>Project 2:</strong> Creative design experiments</p>
-        <p><strong>Project 3:</strong> Coding / UI practice projects</p>
+        <p><strong>Project 2:</strong> Interactive retro desktop UI</p>
+        <p><strong>Project 3:</strong> Engineering and coding projects</p>
       </div>
     </div>
 
