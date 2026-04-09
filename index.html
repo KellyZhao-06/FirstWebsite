@@ -1,34 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kelly Zhao</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Pixel Desktop</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header>
-    <h1>Kelly Zhao</h1>
-    <p>Student @ Stony Brook University | Engineer</p>
-  </header>
 
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>Hello! Welcome to my personal website.</p>
-    </section>
+<div class="desktop">
 
-    <section>
-      <h2>Projects</h2>
-      <p>Projects coming soon.</p>
-    </section>
+  <!-- ICON -->
+  <div class="icon" ondblclick="openWindow('about')">
+    <div class="icon-box">🧍</div>
+    <p>About Me</p>
+  </div>
 
-    <section>
-      <h2>Contact</h2>
-      <p>Email: ZhaoKelly06@gmail.com</p>
-    </section>
-  </main>
+  <!-- WINDOW -->
+  <div id="about" class="window hidden">
+    <div class="title-bar">
+      About Me.exe
+      <button onclick="closeWindow('about')">X</button>
+    </div>
+    <div class="content">
+      <p>Hello! I'm Kelly.</p>
+      <p>This is my pixel desktop site.</p>
+    </div>
+  </div>
 
-  <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
