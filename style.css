@@ -95,7 +95,7 @@ body {
 /* Taskbar */
 .taskbar {
   position: absolute;
-  bottom: 0;
+  bottom: 5;
   left: 0;
   width: 100%;
   background: #c0c0c0;
