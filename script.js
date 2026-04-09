@@ -2,12 +2,22 @@ const desktop = document.getElementById("desktop");
 const icons = document.querySelectorAll(".icon");
 const windows = document.querySelectorAll(".window");
 
+const bootScreen = document.getElementById("boot-screen");
+const loadingScreen = document.getElementById("loading-screen");
+const powerButton = document.getElementById("power-button");
+const terminalText = document.getElementById("terminal-text");
+
 let highestZ = 20;
 
 const GRID_X = 96;
 const GRID_Y = 100;
 const DESKTOP_PADDING = 8;
 const TASKBAR_HEIGHT = 40;
+const MOBILE_BREAKPOINT = 768;
+
+function isMobile() {
+  return window.innerWidth <= MOBILE_BREAKPOINT;
+}
 
 function bringToFront(win) {
   highestZ++;
@@ -57,6 +67,12 @@ function snapIconToGrid(icon, proposedLeft, proposedTop) {
 
   icon.style.left = `${snappedLeft}px`;
   icon.style.top = `${snappedTop}px`;
+}
+
+function initializeIconsToGrid() {
+  icons.forEach(icon => {
+    snapIconToGrid(icon, icon.offsetLeft, icon.offsetTop);
+  });
 }
 
 function makeWindowDraggable(win) {
@@ -111,11 +127,14 @@ function makeWindowDraggable(win) {
   document.addEventListener("touchend", stopDrag);
 }
 
-function makeIconDraggable(icon) {
+function makeIconInteractive(icon) {
   let dragging = false;
   let moved = false;
   let offsetX = 0;
   let offsetY = 0;
+  let startX = 0;
+  let startY = 0;
+  let touchOpened = false;
 
   function selectOnlyThisIcon() {
     icons.forEach(i => i.classList.remove("selected"));
@@ -127,10 +146,17 @@ function makeIconDraggable(icon) {
     dragging = true;
     moved = false;
 
+    startX = pointer.x;
+    startY = pointer.y;
+
     selectOnlyThisIcon();
 
     offsetX = pointer.x - icon.offsetLeft;
     offsetY = pointer.y - icon.offsetTop;
+
+    if (event.type === "touchstart") {
+      touchOpened = false;
+    }
 
     event.preventDefault();
   }
@@ -142,7 +168,7 @@ function makeIconDraggable(icon) {
     const newLeft = pointer.x - offsetX;
     const newTop = pointer.y - offsetY;
 
-    if (Math.abs(newLeft - icon.offsetLeft) > 3 || Math.abs(newTop - icon.offsetTop) > 3) {
+    if (Math.abs(pointer.x - startX) > 6 || Math.abs(pointer.y - startY) > 6) {
       moved = true;
     }
 
@@ -156,11 +182,9 @@ function makeIconDraggable(icon) {
     if (!dragging) return;
     dragging = false;
 
-    snapIconToGrid(icon, icon.offsetLeft, icon.offsetTop);
-
-    setTimeout(() => {
-      moved = false;
-    }, 0);
+    if (moved) {
+      snapIconToGrid(icon, icon.offsetLeft, icon.offsetTop);
+    }
   }
 
   icon.addEventListener("mousedown", startDrag);
@@ -174,16 +198,34 @@ function makeIconDraggable(icon) {
 
   icon.addEventListener("click", () => {
     selectOnlyThisIcon();
+
+    if (isMobile()) {
+      const windowId = icon.getAttribute("data-window");
+      openWindowById(windowId);
+    }
   });
 
   icon.addEventListener("dblclick", () => {
-    if (moved) return;
+    if (isMobile()) return;
     const windowId = icon.getAttribute("data-window");
     openWindowById(windowId);
   });
+
+  icon.addEventListener("touchend", () => {
+    if (!isMobile()) return;
+    if (moved) return;
+    if (touchOpened) return;
+
+    touchOpened = true;
+    const windowId = icon.getAttribute("data-window");
+    openWindowById(windowId);
+
+    setTimeout(() => {
+      touchOpened = false;
+    }, 250);
+  });
 }
 
-/* Close buttons */
 document.querySelectorAll(".close-btn").forEach(button => {
   button.addEventListener("click", (e) => {
     const win = e.target.closest(".window");
@@ -191,21 +233,69 @@ document.querySelectorAll(".close-btn").forEach(button => {
   });
 });
 
-/* Bring window to front when clicked */
 windows.forEach(win => {
   win.addEventListener("mousedown", () => bringToFront(win));
   win.addEventListener("touchstart", () => bringToFront(win), { passive: true });
   makeWindowDraggable(win);
 });
 
-/* Make icons draggable + double click */
 icons.forEach(icon => {
-  makeIconDraggable(icon);
+  makeIconInteractive(icon);
 });
 
-/* Click desktop to deselect icons */
 desktop.addEventListener("click", (e) => {
   if (e.target === desktop) {
     icons.forEach(icon => icon.classList.remove("selected"));
   }
+});
+
+window.addEventListener("resize", () => {
+  icons.forEach(icon => {
+    snapIconToGrid(icon, icon.offsetLeft, icon.offsetTop);
+  });
+});
+
+function typeLines(lines, index = 0) {
+  if (index >= lines.length) {
+    setTimeout(() => {
+      loadingScreen.classList.add("hidden");
+      desktop.classList.remove("hidden");
+      initializeIconsToGrid();
+    }, 700);
+    return;
+  }
+
+  const line = lines[index];
+  let charIndex = 0;
+  const currentLine = document.createElement("div");
+  currentLine.classList.add("terminal-cursor");
+  terminalText.appendChild(currentLine);
+
+  function typeCharacter() {
+    if (charIndex < line.length) {
+      currentLine.textContent += line.charAt(charIndex);
+      charIndex++;
+      setTimeout(typeCharacter, 45);
+    } else {
+      currentLine.classList.remove("terminal-cursor");
+      setTimeout(() => typeLines(lines, index + 1), 250);
+    }
+  }
+
+  typeCharacter();
+}
+
+powerButton.addEventListener("click", () => {
+  bootScreen.classList.add("hidden");
+  loadingScreen.classList.remove("hidden");
+  terminalText.innerHTML = "";
+
+  const lines = [
+    "Kelly Zhao",
+    "Computer Engineering Major",
+    "Stony Brook University Class of 2028",
+    "Loading complete..."
+  ];
+
+  typeLines(lines);
 });
