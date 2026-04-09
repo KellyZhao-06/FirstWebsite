@@ -5,21 +5,25 @@
   font-family: "Courier New", monospace;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
+/* Make the page fill the screen properly */
+html, body {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   background: #008080;
 }
 
+/* Desktop MUST fill the screen */
 .desktop {
   width: 100%;
-  height: 100%;
+  height: 100vh; /* THIS FIXES YOUR ISSUE */
   position: relative;
+
   background:
     linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
     #008080;
+
   background-size: 24px 24px;
 }
 
@@ -92,18 +96,23 @@ body {
   min-height: 160px;
 }
 
-/* Taskbar */
+/* ✅ TASKBAR FIX */
 .taskbar {
   position: absolute;
-  bottom: 0;
+  bottom: 0;   /* stays at bottom now */
   left: 0;
   width: 100%;
+  height: 42px;
+
   background: #c0c0c0;
   border-top: 2px solid #fff;
+
   display: flex;
   align-items: center;
-  padding: 6px;
+  padding: 4px 8px;
   gap: 10px;
+
+  z-index: 1000;
 }
 
 .start-button {
