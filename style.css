@@ -1,26 +1,61 @@
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  background: #f7f7f7;
-  color: #222;
+  background: #1f3f78;
+  font-family: monospace;
 }
 
-header {
-  background: #222;
+/* Desktop */
+.desktop {
+  position: relative;
+  height: 100vh;
+}
+
+/* Icons */
+.icon {
+  position: absolute;
+  top: 40px;
+  left: 40px;
   color: white;
   text-align: center;
-  padding: 48px 20px;
+  cursor: pointer;
 }
 
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
+.icon-box {
+  width: 60px;
+  height: 60px;
+  background: #f8d66d;
+  border: 4px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-section {
-  background: white;
-  margin-bottom: 20px;
-  padding: 24px;
-  border-radius: 12px;
+/* Window */
+.window {
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  width: 300px;
+  background: #f4efe2;
+  border: 4px solid black;
+}
+
+/* Title bar */
+.title-bar {
+  background: #5c94fc;
+  color: white;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+}
+
+/* Content */
+.content {
+  padding: 10px;
+}
+
+/* Hidden */
+.hidden {
+  display: none;
 }
