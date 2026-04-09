@@ -7,28 +7,33 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="desktop">
+  <div class="desktop" id="desktop">
     <!-- Desktop Icons -->
-    <div class="icon" data-window="about-window">
+    <div class="icon" data-window="about-window" style="top: 24px; left: 18px;">
       <div class="icon-image">📄</div>
       <div class="icon-label">AboutMe.txt</div>
     </div>
 
-    <div class="icon" data-window="projects-window">
+    <div class="icon" data-window="projects-window" style="top: 124px; left: 18px;">
       <div class="icon-image">📄</div>
       <div class="icon-label">Projects.txt</div>
     </div>
 
-    <div class="icon" data-window="funfacts-window">
+    <div class="icon" data-window="funfacts-window" style="top: 224px; left: 18px;">
       <div class="icon-image">📄</div>
       <div class="icon-label">FunFacts.txt</div>
+    </div>
+
+    <div class="icon" data-window="notes-window" style="top: 324px; left: 18px;">
+      <div class="icon-image">📝</div>
+      <div class="icon-label">Notes</div>
     </div>
 
     <!-- Windows -->
     <div class="window hidden" id="about-window" style="top: 80px; left: 220px;">
       <div class="title-bar">
         <span>AboutMe.txt</span>
-        <button class="close-btn">X</button>
+        <button class="close-btn" type="button">X</button>
       </div>
       <div class="window-content">
         <p>Hi! I’m Kelly Zhao!</p>
@@ -37,28 +42,38 @@
       </div>
     </div>
 
-    <div class="window hidden" id="projects-window" style="top: 140px; left: 340px;">
+    <div class="window hidden" id="projects-window" style="top: 130px; left: 320px;">
       <div class="title-bar">
         <span>Projects.txt</span>
-        <button class="close-btn">X</button>
+        <button class="close-btn" type="button">X</button>
       </div>
       <div class="window-content">
         <p><strong>Project 1:</strong> Personal portfolio website</p>
         <p><strong>Project 2:</strong> Creative design experiments</p>
         <p><strong>Project 3:</strong> Coding / UI practice projects</p>
-        <p><strong>Project 4:</strong> This cute little website!</p>
       </div>
     </div>
 
-    <div class="window hidden" id="funfacts-window" style="top: 200px; left: 460px;">
+    <div class="window hidden" id="funfacts-window" style="top: 180px; left: 420px;">
       <div class="title-bar">
         <span>FunFacts.txt</span>
-        <button class="close-btn">X</button>
+        <button class="close-btn" type="button">X</button>
       </div>
       <div class="window-content">
         <p>- I like retro-style interfaces.</p>
         <p>- I enjoy making websites feel like little games.</p>
         <p>- I wanted this page to feel like opening files on an old computer.</p>
+      </div>
+    </div>
+
+    <div class="window hidden notes-window" id="notes-window" style="top: 110px; left: 520px;">
+      <div class="title-bar">
+        <span>Notes</span>
+        <button class="close-btn" type="button">X</button>
+      </div>
+      <div class="window-content">
+        <p class="notes-warning">PLEASE NOTE THIS TEXT DOES NOT SAVE</p>
+        <textarea class="notes-area" placeholder="Type here..."></textarea>
       </div>
     </div>
 
